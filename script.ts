@@ -3,27 +3,58 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  //   const user = await prisma.user.create({
+  // craete
+  //   await prisma.user.create({
   //     data: {
-  //       email: "sornchaithedev@gmail.com",
+  //       email: "sornchai.som@ku.th",
+  //       nickName: "Chokun",
+  //       posts: {
+  //         create: {
+  //           title: "First Post!",
+  //           content: "this is my first ever prisma posts",
+  //           published: true,
+  //         },
+  //       },
   //     },
   //   });
 
-  //   const users = await prisma.user.findMany({
-  //     include: {
-  //       posts: true,
-  //     },
-  //   });
-
-  const updateSornchaiTheDev = await prisma.user.update({
-    where: {
-      email: "sornchaithedev@gmail.com",
-    },
-    data: {
-      name: "SornchaiTheDev",
+  // read
+  const users = await prisma.user.findMany({
+    include: {
+      posts: true,
     },
   });
-  console.log(updateSornchaiTheDev);
+
+  // update
+  //   const updateUser = await prisma.user.update({
+  //     where: {
+  //       email: "sornchaithedev@gmail.com",
+  //     },
+  //     data: {
+  //       age: 19,
+  //     },
+  //   });
+  // await prisma.user.create({
+  //   data: {
+  //     email: "test@gmail.com",
+  //   },
+  // });
+
+  // delete
+  //   const deleteUser = await prisma.user.delete({
+  //     where: {
+  //       email: "test@gmail.com",
+  //     },
+  //   });
+
+  // delete Many
+  const deleteIfAgeIsLessthanFive = await prisma.user.deleteMany({
+    where: {
+      age: 5,
+    },
+  });
+  console.log(deleteIfAgeIsLessthanFive);
+  console.dir(users, { depth: null });
 }
 
 main()
